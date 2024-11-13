@@ -29,6 +29,8 @@ public class Driver {
     private String last_name;
 
     private Status status;
-
     
+    public String get_apple_string(){
+        return "";
+    }
 }
