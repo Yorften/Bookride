@@ -4,9 +4,9 @@
 /logs/
 src/main/webapp/node_modules/
 src/main/webapp/css/tailwind/output.css
-src/main/resources/application-prod.yml
-src/main/resources/application-dev.yml
-src/main/resources/application-qa.yml
+src/main/resources/application-prod.yaml
+src/main/resources/application-dev.yaml
+src/main/resources/application-qa.yaml
 *.nar
 *.ear
 *.zip
