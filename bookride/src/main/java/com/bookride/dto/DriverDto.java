@@ -1,5 +1,17 @@
 package com.bookride.dto;
 
-public class DriverDto {
+import com.bookride.model.Enum.Status;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
+public class DriverDto {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private Status status;
 }
