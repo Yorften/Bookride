@@ -14,5 +14,5 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/bookride
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 113411
+    username: 
+    password: 
