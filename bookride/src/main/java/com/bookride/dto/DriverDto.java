@@ -4,7 +4,7 @@ import com.bookride.model.Enum.Status;
 
 import lombok.*;
 
-@Data
+@Data 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
