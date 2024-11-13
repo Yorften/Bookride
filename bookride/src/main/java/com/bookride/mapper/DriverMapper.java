@@ -1,7 +1,5 @@
 package com.bookride.mapper;
 
-import org.mapstruct.Mapping;
-
 import com.bookride.dto.DriverDto;
 import com.bookride.model.Driver;
 
