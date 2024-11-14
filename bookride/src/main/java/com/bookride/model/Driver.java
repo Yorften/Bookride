@@ -10,14 +10,13 @@ import javax.validation.constraints.NotBlank;
 
 import com.bookride.model.Enum.Status;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor  
+@NoArgsConstructor 
+@Builder 
 public class Driver {
 
     @Id
