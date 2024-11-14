@@ -1,9 +1,14 @@
 package com.bookride.mapper;
 
+import org.mapstruct.Mapper;
+
 import com.bookride.dto.DriverDto;
 import com.bookride.model.Driver;
 
-public interface  DriverMapper {
-    DriverDto toDto(Driver driver);
-    Driver toEntity(DriverDto driverDto);
+
+@Mapper(componentModel = "spring")
+public interface DriverMapper {
+
+   Driver toEntity(DriverDto driverDto);
+   DriverDto toDto(Driver driver);
 }
