@@ -1,6 +1,8 @@
 package com.bookride.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,14 +25,12 @@ public class Driver {
     private Long id;
 
     @NotBlank
-    private String first_name;
+    private String firstName;
 
     @NotBlank
-    private String last_name;
+    private String lastName;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
     
-    public String get_apple_string(){
-        return "";
-    }
 }

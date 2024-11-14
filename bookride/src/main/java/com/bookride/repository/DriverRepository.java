@@ -1,5 +1,9 @@
 package com.bookride.repository;
 
-public class DriverRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.bookride.model.Driver;
+
+public interface DriverRepository extends JpaRepository<Driver, Long> {
+    
 }
