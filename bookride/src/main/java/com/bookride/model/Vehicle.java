@@ -15,7 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,9 +28,12 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Table(name = "vehicles")
 @AllArgsConstructor
 @NoArgsConstructor 
-@Builder 
+@Builder
+@SQLDelete(sql = "UPDATE vehicles SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
 public class Vehicle {
 
     @Id
@@ -40,7 +47,7 @@ public class Vehicle {
     private String registrationNumber;
 
     @NotBlank
-    private int mileage;
+    private Integer mileage;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -48,8 +55,11 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
+    @Builder.Default
+    private boolean deleted = Boolean.FALSE;
+
     @OneToOne
-    @JoinColumn(name = "driver_id")
+    @JoinColumn(name = "driver_id", nullable = true)
     private Driver driver;
 
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)

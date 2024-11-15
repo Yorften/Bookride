@@ -56,6 +56,4 @@ public class DriverController {
         List<Object[]> analytics = driverService.getAvailabilityAnalysis();
         return new ResponseEntity<>(analytics, HttpStatus.OK);
     }
-
-
 }

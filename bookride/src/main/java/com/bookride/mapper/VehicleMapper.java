@@ -9,8 +9,10 @@ import com.bookride.model.Vehicle;
 
 @Mapper(componentModel = "spring", uses = {DriverMapper.class, ReservationMapper.class})
 public interface VehicleMapper {
+   @Mapping(target = "deleted", ignore = true)
    Vehicle toEntity(VehicleDto vehicleDto);
 
    @Mapping(target = "reservations.vehicle", ignore = true)
+   @Mapping(target = "driver.vehicle", ignore = true)
    VehicleDto toDto(Vehicle vehicle);
 }
