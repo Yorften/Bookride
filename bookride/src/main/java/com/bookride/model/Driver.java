@@ -1,11 +1,8 @@
 package com.bookride.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.time.LocalTime;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.bookride.model.Enum.Status;
@@ -13,10 +10,11 @@ import com.bookride.model.Enum.Status;
 import lombok.*;
 
 @Entity
+@Table(name = "drivers")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor 
-@Builder 
+@NoArgsConstructor
+@Builder
 public class Driver {
 
     @Id
@@ -31,5 +29,8 @@ public class Driver {
 
     @Enumerated(EnumType.STRING)
     private Status status;
-    
+
+    private LocalTime disponibiliteDebut;
+    private LocalTime disponibiliteFin;
+
 }

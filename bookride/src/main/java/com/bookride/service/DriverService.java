@@ -13,7 +13,7 @@ import com.bookride.model.Driver;
 import com.bookride.repository.DriverRepository;
 
 @Service
-public class DriverServiceImpl {
+public class DriverService {
 
     @Autowired
     private DriverRepository driverRepository;
@@ -47,9 +47,9 @@ public class DriverServiceImpl {
         driverRepository.deleteById(id);
     }
 
-    public Optional<DriverDto> getById(Long id) {
-        return driverRepository.findById(id)
-                .map(driverMapper::toDto);
+    public DriverDto getById(Long id) {
+       Driver driver = driverRepository.findById(id).orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
+        return driverMapper.toDto(driver);
     }
 
     public List<DriverDto> getAll() {
