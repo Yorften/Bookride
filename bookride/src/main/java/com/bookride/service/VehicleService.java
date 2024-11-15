@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookride.dao.VehicleDao;
 import com.bookride.dto.VehicleDto;
 import com.bookride.mapper.VehicleMapper;
 import com.bookride.model.Vehicle;
@@ -17,9 +16,6 @@ import liquibase.repackaged.org.apache.commons.lang3.StringUtils;
 
 @Service
 public class VehicleService {
-
-    @Autowired
-    private VehicleDao driverDao;
 
     @Autowired
     private VehicleRepository vehicleRepository;

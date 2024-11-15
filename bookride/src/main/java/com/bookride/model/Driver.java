@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+
 import com.bookride.model.Enum.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
 
@@ -33,9 +35,11 @@ public class Driver {
     private Status status;
 
     @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime availabilityStart;
 
     @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime availabilityEnd;
 
     @OneToOne(mappedBy = "driver")
