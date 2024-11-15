@@ -13,5 +13,6 @@ public interface VehicleMapper {
    Vehicle toEntity(VehicleDto vehicleDto);
 
    @Mapping(target = "reservations.vehicle", ignore = true)
+   @Mapping(target = "driver.vehicle", ignore = true)
    VehicleDto toDto(Vehicle vehicle);
 }

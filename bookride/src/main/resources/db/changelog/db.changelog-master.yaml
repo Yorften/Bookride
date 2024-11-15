@@ -15,3 +15,6 @@ databaseChangeLog:
   - include:
       file: changes/changelog-5-inserts.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/changelog-6.yaml
+      relativeToChangelogFile: true
