@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: yassine
+      changes:
+        - createTable:
+            tableName: drivers
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: status
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column: 
+                  name: disponibilite_debut
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: disponibilite_fin
+                  type: TIME
+                  constraints:
+                    nullable: false
