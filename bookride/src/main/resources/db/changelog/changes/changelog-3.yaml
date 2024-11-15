@@ -15,4 +15,4 @@ databaseChangeLog:
                   name: availability_end
                   type: TIME
                   constraints:
-                    nullable: fend
+                    nullable: false

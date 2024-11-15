@@ -25,20 +25,22 @@ public class DriverService {
     @Autowired
     private DriverMapper driverMapper;
 
-    public DriverDto create(DriverDto driverDto) {
-        Driver driver = driverMapper.toEntity(driverDto);
+    public DriverDto create(Driver driver) {
         Driver savedDriver = driverRepository.save(driver);
         return driverMapper.toDto(savedDriver);
     }
 
-    public DriverDto update(Long id, DriverDto driverDto) {
+    public DriverDto update(Long id, Driver driver) {
         Optional<Driver> existingDriverOpt = driverRepository.findById(id);
 
         if (existingDriverOpt.isPresent()) {
             Driver existingDriver = existingDriverOpt.get();
-            existingDriver.setFirstName(driverDto.getFirstName());
-            existingDriver.setLastName(driverDto.getLastName());
-            existingDriver.setStatus(driverDto.getStatus());
+            existingDriver.setFirstName(driver.getFirstName());
+            existingDriver.setLastName(driver.getLastName());
+            existingDriver.setStatus(driver.getStatus());
+            existingDriver.setAvailabilityStart(driver.getAvailabilityStart());
+            existingDriver.setAvailabilityEnd(driver.getAvailabilityEnd());
+            existingDriver.setVehicle(driver.getVehicle());
 
             Driver updatedDriver = driverRepository.save(existingDriver);
             return driverMapper.toDto(updatedDriver);

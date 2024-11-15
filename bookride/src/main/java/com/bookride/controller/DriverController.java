@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.bookride.dto.DriverDto;
+import com.bookride.model.Driver;
 import com.bookride.service.DriverService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,15 +34,15 @@ public class DriverController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid DriverDto driverDto ){
-        DriverDto driver = driverService.create(driverDto);
-        return new ResponseEntity<>(driver,HttpStatus.ACCEPTED);
+    public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid Driver driver ){
+        DriverDto driverDto = driverService.create(driver);
+        return new ResponseEntity<>(driverDto,HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<DriverDto> updateDriver(@PathVariable Long id , @RequestBody @Valid DriverDto driverDto ){
-        DriverDto driver = driverService.update(id, driverDto);
-        return new ResponseEntity<>(driver,HttpStatus.ACCEPTED);
+    public ResponseEntity<DriverDto> updateDriver(@PathVariable Long id , @RequestBody @Valid Driver driver ){
+        DriverDto driverDto = driverService.update(id, driver);
+        return new ResponseEntity<>(driverDto,HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")

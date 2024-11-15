@@ -21,9 +21,9 @@ public class DriverDao {
     }
 
     public List<Object[]> analyzeAvailabilityPeriods() {
-        String jpql = "SELECT d.disponibiliteDebut, d.disponibiliteFin, COUNT(d) " +
+        String jpql = "SELECT d.availability_start, d.availability_end, COUNT(d) " +
                 "FROM Drivers d " +
-                "GROUP BY d.disponibiliteDebut, d.disponibiliteFin";
+                "GROUP BY d.availability_start, d.availability_end";
         TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
         return query.getResultList();
     }
