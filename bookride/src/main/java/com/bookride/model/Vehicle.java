@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.SQLDelete;
@@ -27,6 +28,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Table(name = "vehicles")
 @AllArgsConstructor
 @NoArgsConstructor 
 @Builder
@@ -45,7 +47,7 @@ public class Vehicle {
     private String registrationNumber;
 
     @NotBlank
-    private int mileage;
+    private Integer mileage;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -57,7 +59,7 @@ public class Vehicle {
     private boolean deleted = Boolean.FALSE;
 
     @OneToOne
-    @JoinColumn(name = "driver_id")
+    @JoinColumn(name = "driver_id", nullable = true)
     private Driver driver;
 
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)

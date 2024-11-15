@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: "4"
+      author: abderrahamn
+      changes:
+        - renameColumn:
+            tableName: reservations
+            oldColumnName: startDate
+            newColumnName: start_date
+            columnDataType: TIMESTAMP
+
+        - renameColumn:
+            tableName: reservations
+            oldColumnName: endTime
+            newColumnName: end_time
+            columnDataType: TIMESTAMP
+
+        - renameColumn:
+            tableName: reservations
+            oldColumnName: depatureAddress
+            newColumnName: depature_address
+            columnDataType: VARCHAR(255)
+
+        - renameColumn:
+            tableName: reservations
+            oldColumnName: destinationAddress
+            newColumnName: destination_address
+            columnDataType: VARCHAR(255)

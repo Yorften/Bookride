@@ -249,7 +249,7 @@ databaseChangeLog:
                   value: "null"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -277,7 +277,7 @@ databaseChangeLog:
                   value: "null"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -305,7 +305,7 @@ databaseChangeLog:
                   value: "1"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -333,7 +333,7 @@ databaseChangeLog:
                   value: "2"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -361,7 +361,7 @@ databaseChangeLog:
                   value: "3"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -389,7 +389,7 @@ databaseChangeLog:
                   value: "4"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -417,7 +417,7 @@ databaseChangeLog:
                   value: "5"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -445,7 +445,7 @@ databaseChangeLog:
                   value: "6"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -473,7 +473,7 @@ databaseChangeLog:
                   value: "7"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
 
         - insert:
             tableName: vehicles
@@ -501,4 +501,4 @@ databaseChangeLog:
                   value: "8"
               - column:
                   name: deleted
-                  valueBoolean: false
+                  value: false
