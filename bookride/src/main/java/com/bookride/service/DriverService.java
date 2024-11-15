@@ -1,6 +1,9 @@
 package com.bookride.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,7 +57,8 @@ public class DriverService {
     }
 
     public DriverDto getById(Long id) {
-       Driver driver = driverRepository.findById(id).orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
+        Driver driver = driverRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
         return driverMapper.toDto(driver);
     }
 
@@ -64,16 +68,41 @@ public class DriverService {
                 .collect(Collectors.toList());
     }
 
-    public double getOccupationRate() {
-        return driverDao.calculateOccupationRate();
-    }
+    public Map<String, Object> getAnalytics() {
+        double occupationRate = driverDao.calculateOccupationRate();
 
-    public List<Object[]> getAvailabilityAnalysis() {
-        return driverDao.analyzeAvailabilityPeriods();
-    }
+        // Récupérer l'analyse des plages horaires de disponibilité
+        List<Object[]> availabilityAnalysis = driverDao.analyzeAvailabilityPeriods();
 
-    public List<Object[]> getStatusDistribution() {
-        return driverDao.getStatusDistribution();
+        // Récupérer la répartition des statuts
+        List<Object[]> statusDistribution = driverDao.getStatusDistribution();
+
+        // Construire l'objet JSON de réponse
+        Map<String, Object> analytics = new HashMap<>();
+        analytics.put("occupationRate", occupationRate);
+
+        // Traiter l'analyse des plages horaires de disponibilité
+        List<Map<String, Object>> availabilityList = new ArrayList<>();
+        for (Object[] record : availabilityAnalysis) {
+            Map<String, Object> availabilityData = new HashMap<>();
+            availabilityData.put("start", record[0]); // Disponibilité début
+            availabilityData.put("end", record[1]); // Disponibilité fin
+            availabilityData.put("driverCount", record[2]); // Nombre de chauffeurs
+            availabilityList.add(availabilityData);
+        }
+        analytics.put("availabilityAnalysis", availabilityList);
+
+        // Traiter la répartition des statuts
+        List<Map<String, Object>> statusList = new ArrayList<>();
+        for (Object[] record : statusDistribution) {
+            Map<String, Object> statusData = new HashMap<>();
+            statusData.put("status", record[0]); // Statut du chauffeur
+            statusData.put("count", record[1]); // Nombre de chauffeurs dans ce statut
+            statusList.add(statusData);
+        }
+        analytics.put("statusDistribution", statusList);
+
+        return analytics;
+
     }
 }
-

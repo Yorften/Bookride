@@ -33,7 +33,7 @@ class DriverControllerIntegrationTest {
 
     @Test
     void testGetDriverById() {
-        ResponseEntity<DriverDto> response = restTemplate.exchange("/api/chauffeurs/1", HttpMethod.GET, null, DriverDto.class);
+        ResponseEntity<DriverDto> response = restTemplate.exchange("/api/drivers/1", HttpMethod.GET, null, DriverDto.class);
 
         assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());

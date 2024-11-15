@@ -1,6 +1,8 @@
 package com.bookride.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,47 +15,46 @@ import com.bookride.service.DriverService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/api/chauffeurs")
+@RequestMapping("/api/drivers")
 @RestController
 @Validated
 @RequiredArgsConstructor
 public class DriverController {
-    
+
     private final DriverService driverService;
 
     @GetMapping("/list")
-    public List<DriverDto> getAllDrivers(){
-        List<DriverDto> driver = driverService.getAll();
-        return driver;
+    public List<DriverDto> getAllDrivers() {
+        return driverService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DriverDto> getDriverById(@PathVariable Long id){
+    public ResponseEntity<DriverDto> getDriverById(@PathVariable Long id) {
         DriverDto driver = driverService.getById(id);
-        return new ResponseEntity<>(driver,HttpStatus.OK);
+        return new ResponseEntity<>(driver, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid Driver driver ){
+    public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid Driver driver) {
         DriverDto driverDto = driverService.create(driver);
-        return new ResponseEntity<>(driverDto,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(driverDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<DriverDto> updateDriver(@PathVariable Long id , @RequestBody @Valid Driver driver ){
+    public ResponseEntity<DriverDto> updateDriver(@PathVariable Long id, @RequestBody @Valid Driver driver) {
         DriverDto driverDto = driverService.update(id, driver);
-        return new ResponseEntity<>(driverDto,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(driverDto, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<DriverDto> deleteDriver(@PathVariable Long id){
+    public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
         driverService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/analytics")
-    public ResponseEntity<List<Object[]>> getDriverAnalytics() {
-        List<Object[]> analytics = driverService.getAvailabilityAnalysis();
-        return new ResponseEntity<>(analytics, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getDriverAnalytics() {
+        Map<String, Object> analytics = driverService.getAnalytics();
+        return ResponseEntity.ok(analytics);
     }
 }
