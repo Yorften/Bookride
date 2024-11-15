@@ -1,6 +1,6 @@
 package com.bookride.dto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import com.bookride.model.Enum.Status;
 
@@ -15,6 +15,7 @@ public class DriverDto {
     private String firstName;
     private String lastName;
     private Status status;
-    private LocalTime disponibiliteDebut;
-    private LocalTime disponibiliteFin;
+    private LocalDateTime availabilityStart;
+    private LocalDateTime availabilityEnd;
+    private VehicleDto vehicle;
 }

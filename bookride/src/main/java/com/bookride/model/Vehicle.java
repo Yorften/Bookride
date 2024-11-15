@@ -46,7 +46,7 @@ public class Vehicle {
     private Status status;
 
     @Enumerated(EnumType.STRING)
-    private VehicleType type;
+    private VehicleType vehicleType;
 
     @OneToOne
     @JoinColumn(name = "driver_id")
