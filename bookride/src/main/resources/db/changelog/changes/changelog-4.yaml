@@ -1,0 +1,117 @@
+databaseChangeLog:
+  - changeSet:
+      id: "4"
+      author: abderrahamn
+      changes:
+        - createTable:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: model
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: mileage
+                  type: INTEGER(7)
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: status
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column: 
+                  name: vehicle_type
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: driver_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: reservations
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: startDate
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: endTime
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: depatureAddress
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: destinationAddress
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: price
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: distance
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vahicle_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: reservation_status
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+
+        - addForeignKeyConstraint:
+            baseTableName: vehicles
+            baseColumnNames: driver_id
+            constraintName: vehicle_driver_fk
+            referencedTableName: drivers
+            referencedColumnNames: id
+            onDelete: SET NULL
+            
+        - addForeignKeyConstraint:
+            baseTableName: reservations
+            baseColumnNames: vahicle_id
+            constraintName: reservation_vehicle_fk
+            referencedTableName: vehicles
+            referencedColumnNames: id

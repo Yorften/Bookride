@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 3
+      id: "3"
       author: yassine
       changes:
         - addColumn:
@@ -15,4 +15,4 @@ databaseChangeLog:
                   name: availability_end
                   type: TIME
                   constraints:
-                    nullable: fend
+                    nullable: false

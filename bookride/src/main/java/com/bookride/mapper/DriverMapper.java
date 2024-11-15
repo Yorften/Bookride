@@ -9,7 +9,8 @@ import com.bookride.model.Driver;
 
 @Mapper(componentModel = "spring")
 public interface DriverMapper {
-   
+
+   @Mapping(target = "vehicle.deleted", ignore = true)
    Driver toEntity(DriverDto driverDto);
 
    @Mapping(target = "vehicle.driver", ignore = true)
