@@ -1,10 +1,8 @@
 databaseChangeLog:
   - changeSet:
-      id: 2
+      id: 3
       author: yassine
       changes:
-        - dropTable:
-            tableName: students
         - createTable:
             tableName: drivers
             columns:
@@ -30,3 +28,13 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: true
+              - column: 
+                  name: disponibilite_debut
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: disponibilite_fin
+                  type: TIME
+                  constraints:
+                    nullable: false

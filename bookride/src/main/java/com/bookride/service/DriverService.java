@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bookride.dao.DriverDao;
 import com.bookride.dto.DriverDto;
 import com.bookride.mapper.DriverMapper;
 import com.bookride.model.Driver;
@@ -14,6 +15,9 @@ import com.bookride.repository.DriverRepository;
 
 @Service
 public class DriverService {
+
+    @Autowired
+    private DriverDao driverDao;
 
     @Autowired
     private DriverRepository driverRepository;
@@ -56,6 +60,18 @@ public class DriverService {
         return driverRepository.findAll().stream()
                 .map(driverMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public double getOccupationRate() {
+        return driverDao.calculateOccupationRate();
+    }
+
+    public List<Object[]> getAvailabilityAnalysis() {
+        return driverDao.analyzeAvailabilityPeriods();
+    }
+
+    public List<Object[]> getStatusDistribution() {
+        return driverDao.getStatusDistribution();
     }
 }
 

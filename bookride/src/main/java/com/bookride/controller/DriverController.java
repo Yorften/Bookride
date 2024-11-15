@@ -50,6 +50,11 @@ public class DriverController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/analytics")
+    public ResponseEntity<List<Object[]>> getDriverAnalytics() {
+        List<Object[]> analytics = driverService.getAvailabilityAnalysis();
+        return new ResponseEntity<>(analytics, HttpStatus.OK);
+    }
 
 
 }

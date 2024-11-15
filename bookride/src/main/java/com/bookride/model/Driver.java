@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.bookride.model.Enum.Status;
 
@@ -28,9 +29,12 @@ public class Driver {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Status status;
 
+    @NotNull
     private LocalTime disponibiliteDebut;
+    @NotNull
     private LocalTime disponibiliteFin;
 
 }
