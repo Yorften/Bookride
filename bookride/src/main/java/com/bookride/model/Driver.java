@@ -1,6 +1,6 @@
 package com.bookride.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,8 +33,12 @@ public class Driver {
     private Status status;
 
     @NotNull
-    private LocalTime disponibiliteDebut;
+    private LocalDateTime availabilityStart;
+
     @NotNull
-    private LocalTime disponibiliteFin;
+    private LocalDateTime availabilityEnd;
+
+    @OneToOne(mappedBy = "driver")
+    private Vehicle vehicle;
 
 }
