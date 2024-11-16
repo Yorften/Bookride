@@ -23,7 +23,7 @@ public class DriverController {
 
     private final DriverService driverService;
 
-    @GetMapping("/list")
+    @GetMapping
     public List<DriverDto> getAllDrivers() {
         return driverService.getAll();
     }
@@ -34,19 +34,19 @@ public class DriverController {
         return new ResponseEntity<>(driver, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid Driver driver) {
         DriverDto driverDto = driverService.create(driver);
         return new ResponseEntity<>(driverDto, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<DriverDto> updateDriver(@PathVariable Long id, @RequestBody @Valid Driver driver) {
         DriverDto driverDto = driverService.update(id, driver);
         return new ResponseEntity<>(driverDto, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
         driverService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
