@@ -35,11 +35,11 @@ public class Driver {
     private Status status;
 
     @NotNull
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime availabilityStart;
 
     @NotNull
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime availabilityEnd;
 
     @OneToOne(mappedBy = "driver")
