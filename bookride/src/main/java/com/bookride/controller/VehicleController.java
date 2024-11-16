@@ -1,6 +1,7 @@
 package com.bookride.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookride.dto.VehicleAnalyticsDto;
 import com.bookride.dto.VehicleDto;
 import com.bookride.model.Vehicle;
 import com.bookride.service.VehicleService;
@@ -81,6 +83,23 @@ public class VehicleController {
     public VehicleDto getVehicle(
             @Parameter(description = "ID of the vehicle to be retrieved") @PathVariable("id") Long vehicleId) {
         return vehicleService.getById(vehicleId);
+    }
+
+    /**
+     * Handles GET requests to fetch the vehicles analytics.
+     * 
+     * @return analytics of vehicles
+     */
+    @Operation(summary = "Get vehicles analytics", description = "Fetches analytics about vehicles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the vehicle"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "404", description = "Vehicle not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/analytics")
+    public Map<String, VehicleAnalyticsDto> getVehicleAnalytics() {
+        return vehicleService.getAnalytics();
     }
 
     /**
