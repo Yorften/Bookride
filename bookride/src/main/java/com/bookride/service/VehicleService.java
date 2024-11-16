@@ -30,9 +30,9 @@ public class VehicleService {
     private VehicleMapper vehicleMapper;
 
     public VehicleDto getById(Long id) {
-        Vehicle driver = vehicleRepository.findById(id)
+        Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
-        return vehicleMapper.toDto(driver);
+        return vehicleMapper.toDto(vehicle);
     }
 
     public List<VehicleDto> getAll() {
@@ -91,6 +91,8 @@ public class VehicleService {
     }
 
     public void delete(Long id) {
-        vehicleRepository.deleteById(id);
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
+        vehicleRepository.delete(vehicle);
     }
 }
