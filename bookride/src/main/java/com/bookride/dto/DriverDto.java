@@ -2,6 +2,7 @@ package com.bookride.dto;
 
 import java.time.LocalDateTime;
 
+import com.bookride.model.Enum.NiveauQ;
 import com.bookride.model.Enum.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,4 +22,6 @@ public class DriverDto {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime availabilityEnd;
     private VehicleDto vehicle;
+    private int dureePermis;
+    private NiveauQ niveauQ;
 }

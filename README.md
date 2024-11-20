@@ -140,7 +140,7 @@ Les contributions sont les bienvenues ! Veuillez suivre les étapes ci-dessous p
 - Créez une Pull Request
 ### Auteur
 
-Yassine Hanach
+#### Yassine Hanach
 - GitHub: [https://github.com/Yassinean](https://github.com/Yassinean)
-Abderrahman Badi
+####    Abderrahman Badi
 - GitHub: [https://github.com/Yorften](https://github.com/Yorften)

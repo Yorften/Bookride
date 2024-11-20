@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: "3"
+      author: yassine
+      changes:
+        - addColumn:
+            tableName: drivers
+            columns:
+              - column:
+                  name: availability_start
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: availability_end
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dureePermis
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column: 
+                  name: niveauQ
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true

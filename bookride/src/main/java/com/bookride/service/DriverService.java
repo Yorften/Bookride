@@ -14,6 +14,7 @@ import com.bookride.dao.DriverDao;
 import com.bookride.dto.DriverDto;
 import com.bookride.mapper.DriverMapper;
 import com.bookride.model.Driver;
+import com.bookride.model.Enum.NiveauQ;
 import com.bookride.repository.DriverRepository;
 
 @Service
@@ -29,27 +30,26 @@ public class DriverService {
     private DriverMapper driverMapper;
 
     public DriverDto create(Driver driver) {
+        driver.setNiveauQBasedOnDureePermis();
         Driver savedDriver = driverRepository.save(driver);
         return driverMapper.toDto(savedDriver);
     }
 
     public DriverDto update(Long id, Driver driver) {
-        Optional<Driver> existingDriverOpt = driverRepository.findById(id);
+        Driver existingDriver = driverRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Driver not found with ID: " + id));
 
-        if (existingDriverOpt.isPresent()) {
-            Driver existingDriver = existingDriverOpt.get();
-            existingDriver.setFirstName(driver.getFirstName());
-            existingDriver.setLastName(driver.getLastName());
-            existingDriver.setStatus(driver.getStatus());
-            existingDriver.setAvailabilityStart(driver.getAvailabilityStart());
-            existingDriver.setAvailabilityEnd(driver.getAvailabilityEnd());
-            existingDriver.setVehicle(driver.getVehicle());
+        existingDriver.setFirstName(driver.getFirstName());
+        existingDriver.setLastName(driver.getLastName());
+        existingDriver.setStatus(driver.getStatus());
+        existingDriver.setAvailabilityStart(driver.getAvailabilityStart());
+        existingDriver.setAvailabilityEnd(driver.getAvailabilityEnd());
+        existingDriver.setDureePermis(driver.getDureePermis());
+        existingDriver.setVehicle(driver.getVehicle());
+        existingDriver.setNiveauQBasedOnDureePermis();
 
-            Driver updatedDriver = driverRepository.save(existingDriver);
-            return driverMapper.toDto(updatedDriver);
-        } else {
-            throw new RuntimeException("Driver not found with ID: " + id);
-        }
+        Driver updatedDriver = driverRepository.save(existingDriver);
+        return driverMapper.toDto(updatedDriver);
     }
 
     public void delete(Long id) {
@@ -103,6 +103,12 @@ public class DriverService {
         analytics.put("statusDistribution", statusList);
 
         return analytics;
+    }
 
+    public List<DriverDto> getDriversByQualification(NiveauQ niveauQ) {
+        return driverRepository.findAll().stream()
+                .filter(driver -> driver.getNiveauQ() == niveauQ)
+                .map(driverMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
