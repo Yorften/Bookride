@@ -2,6 +2,8 @@ package com.bookride.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
 import com.bookride.model.Enum.Status;
 import com.bookride.model.Enum.VehicleType;
 
@@ -22,5 +24,7 @@ public class VehicleDto {
     private Status status;
     private VehicleType vehicleType;
     private DriverDto driver;
+    @Pattern(regexp = "^ASS-[A-Z]{3}-[1-9]{3}$")
+    private String insuranceNumber;
     private List<ReservationDto> reservations;
 }

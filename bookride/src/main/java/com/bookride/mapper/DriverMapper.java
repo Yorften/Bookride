@@ -6,7 +6,6 @@ import org.mapstruct.Mapping;
 import com.bookride.dto.DriverDto;
 import com.bookride.model.Driver;
 
-
 @Mapper(componentModel = "spring")
 public interface DriverMapper {
 

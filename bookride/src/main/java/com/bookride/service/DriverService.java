@@ -16,6 +16,8 @@ import com.bookride.mapper.DriverMapper;
 import com.bookride.model.Driver;
 import com.bookride.repository.DriverRepository;
 
+import liquibase.repackaged.org.apache.commons.lang3.StringUtils;
+
 @Service
 public class DriverService {
 
@@ -38,13 +40,24 @@ public class DriverService {
 
         if (existingDriverOpt.isPresent()) {
             Driver existingDriver = existingDriverOpt.get();
-            existingDriver.setFirstName(driver.getFirstName());
-            existingDriver.setLastName(driver.getLastName());
-            existingDriver.setStatus(driver.getStatus());
-            existingDriver.setAvailabilityStart(driver.getAvailabilityStart());
-            existingDriver.setAvailabilityEnd(driver.getAvailabilityEnd());
-            existingDriver.setVehicle(driver.getVehicle());
-
+            if (StringUtils.isNotBlank(driver.getFirstName())) {
+                existingDriver.setFirstName(driver.getFirstName());
+            }
+            if (StringUtils.isNotBlank(driver.getLastName())) {
+                existingDriver.setLastName(driver.getLastName());
+            }
+            if (driver.getAvailabilityStart() != null) {
+                existingDriver.setAvailabilityStart(driver.getAvailabilityStart());
+            }
+            if (driver.getAvailabilityEnd() != null) {
+                existingDriver.setAvailabilityEnd(driver.getAvailabilityEnd());
+            }
+            if (driver.getStatus() != null) {
+                existingDriver.setStatus(driver.getStatus());
+            }
+            if (driver.getVehicle() != null) {
+                existingDriver.setVehicle(driver.getVehicle());
+            }
             Driver updatedDriver = driverRepository.save(existingDriver);
             return driverMapper.toDto(updatedDriver);
         } else {

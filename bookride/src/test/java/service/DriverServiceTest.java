@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import com.bookride.repository.DriverRepository;
 import com.bookride.service.DriverService;
 
 public class DriverServiceTest {
- @InjectMocks
+    @InjectMocks
     private DriverService driverService;
 
     @Mock
@@ -39,8 +39,10 @@ public class DriverServiceTest {
 
     @Test
     void testCreateDriver() {
-        Driver driver = new Driver(1L, "John", "Doe", Status.AVAILABLE, LocalDateTime.parse("2024-11-15T00:00:00"), LocalDateTime.parse("2024-11-16T00:00:00"), null);
-        DriverDto driverDto = new DriverDto(1L, "John", "Doe", Status.AVAILABLE, LocalDateTime.parse("2024-11-15T00:00:00"), LocalDateTime.parse("2024-11-16T00:00:00"), null);
+        Driver driver = new Driver(1L, "John", "Doe", Status.AVAILABLE, LocalTime.parse("08:00:00"),
+                LocalTime.parse("18:00:00"), null);
+        DriverDto driverDto = new DriverDto(1L, "John", "Doe", Status.AVAILABLE, LocalTime.parse("08:00:00"),
+                LocalTime.parse("18:00:00"), null);
 
         when(driverMapper.toEntity(driverDto)).thenReturn(driver);
         when(driverRepository.save(driver)).thenReturn(driver);
@@ -55,9 +57,11 @@ public class DriverServiceTest {
 
     @Test
     void testGetDriverById() {
-        Driver driver = new Driver(1L, "John", "Doe", Status.AVAILABLE, LocalDateTime.parse("2024-11-15T00:00:00"), LocalDateTime.parse("2024-11-16T00:00:00"), null);
+        Driver driver = new Driver(1L, "John", "Doe", Status.AVAILABLE, LocalTime.parse("08:00:00"),
+                LocalTime.parse("18:00:00"), null);
         when(driverRepository.findById(1L)).thenReturn(Optional.of(driver));
-        when(driverMapper.toDto(driver)).thenReturn(new DriverDto(1L, "John", "Doe", Status.AVAILABLE, LocalDateTime.parse("2024-11-15T00:00:00"), LocalDateTime.parse("2024-11-16T00:00:00"), null));
+        when(driverMapper.toDto(driver)).thenReturn(new DriverDto(1L, "John", "Doe", Status.AVAILABLE,
+                LocalTime.parse("08:00:00"), LocalTime.parse("18:00:00"), null));
 
         DriverDto result = driverService.getById(1L);
 

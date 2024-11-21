@@ -11,13 +11,16 @@ import org.springframework.stereotype.Service;
 import com.bookride.dao.VehicleDao;
 import com.bookride.dto.VehicleAnalyticsDto;
 import com.bookride.dto.VehicleDto;
+import com.bookride.exceptions.ResourceNotFoundException;
 import com.bookride.mapper.VehicleMapper;
 import com.bookride.model.Vehicle;
 import com.bookride.repository.VehicleRepository;
 
 import liquibase.repackaged.org.apache.commons.lang3.StringUtils;
+import lombok.extern.log4j.Log4j2;
 
 @Service
+@Log4j2
 public class VehicleService {
 
     @Autowired
@@ -35,6 +38,14 @@ public class VehicleService {
         return vehicleMapper.toDto(vehicle);
     }
 
+    public VehicleDto getByInsuranceNumber(String insuranceNumber) throws ResourceNotFoundException {
+        List<VehicleDto> vehicles = getAll();
+
+        return vehicles.stream().filter(
+                vehicle -> vehicle.getInsuranceNumber() != null && vehicle.getInsuranceNumber().equals(insuranceNumber))
+                .findFirst().orElseThrow(() -> new ResourceNotFoundException("Couldn't find vehicle"));
+    }
+
     public List<VehicleDto> getAll() {
         return vehicleRepository.findAll().stream()
                 .map(vehicleMapper::toDto)
@@ -49,11 +60,17 @@ public class VehicleService {
         List<Object[]> fleetAnaltytics = vehicleDao.getFleetStatusByVehicleType();
 
         analyticsMap.put("SEDAN",
-                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(0)[1]).usageRate((Double) usageRateAnaltytics.get(0)[1]).fleetStatus((long) fleetAnaltytics.get(0)[1]).build());
+                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(0)[1])
+                        .usageRate((Double) usageRateAnaltytics.get(0)[1]).fleetStatus((long) fleetAnaltytics.get(0)[1])
+                        .build());
         analyticsMap.put("MINIBUS",
-                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(1)[1]).usageRate((Double) usageRateAnaltytics.get(1)[1]).fleetStatus((long) fleetAnaltytics.get(1)[1]).build());
+                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(1)[1])
+                        .usageRate((Double) usageRateAnaltytics.get(1)[1]).fleetStatus((long) fleetAnaltytics.get(1)[1])
+                        .build());
         analyticsMap.put("VAN",
-                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(2)[1]).usageRate((Double) usageRateAnaltytics.get(2)[1]).fleetStatus((long) fleetAnaltytics.get(2)[1]).build());
+                VehicleAnalyticsDto.builder().averageMileage((Double) mileageAnaltytics.get(2)[1])
+                        .usageRate((Double) usageRateAnaltytics.get(2)[1]).fleetStatus((long) fleetAnaltytics.get(2)[1])
+                        .build());
         return analyticsMap;
     }
 

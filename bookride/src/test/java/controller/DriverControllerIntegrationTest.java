@@ -3,7 +3,7 @@ package controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.bookride.Main;
 import com.bookride.dto.DriverDto;
@@ -23,7 +23,7 @@ class DriverControllerIntegrationTest {
 
     @Test
     void testCreateDriver() {
-        DriverDto driverDto = new DriverDto(1L, "John", "Doe", Status.AVAILABLE, LocalDateTime.parse("2024-11-15T00:00:00"), LocalDateTime.parse("2024-11-16T00:00:00"), null);
+        DriverDto driverDto = new DriverDto(1L, "John", "Doe", Status.AVAILABLE, LocalTime.parse("08:00:00"), LocalTime.parse("18:00:00"), null);
         ResponseEntity<DriverDto> response = restTemplate.postForEntity("/api/chauffeurs/add", driverDto, DriverDto.class);
 
         assertEquals(201, response.getStatusCodeValue());

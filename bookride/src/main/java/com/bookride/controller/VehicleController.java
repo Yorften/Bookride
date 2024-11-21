@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookride.dto.VehicleAnalyticsDto;
 import com.bookride.dto.VehicleDto;
+import com.bookride.exceptions.InvalidInsuranceNumberException;
+import com.bookride.exceptions.ResourceNotFoundException;
 import com.bookride.model.Vehicle;
 import com.bookride.service.VehicleService;
 
@@ -24,6 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * REST controller for managing Vehicle entities.
@@ -31,6 +35,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
  */
 @RestController // Marks this class as a RESTful controller.
 @RequestMapping("/api/vehicles")
+@Log4j2
 public class VehicleController {
 
     @Autowired
@@ -48,7 +53,10 @@ public class VehicleController {
             @ApiResponse(responseCode = "400", description = "Invalid input data")
     })
     @PostMapping
-    public VehicleDto saveVehicle(@Valid @RequestBody Vehicle vehicle) {
+    public VehicleDto saveVehicle(@RequestBody @Valid Vehicle vehicle, BindingResult errors) throws InvalidInsuranceNumberException {
+        if(errors.hasFieldErrors("insuranceNumber")){
+                throw new InvalidInsuranceNumberException(null);
+        }
         return vehicleService.create(vehicle);
     }
 
@@ -68,9 +76,9 @@ public class VehicleController {
     }
 
     /**
-     * Handles GET requests to fetch the list of all vehicles.
+     * Handles GET requests to fetch a vehicle entity by id.
      * 
-     * @return a list of vehicle entities
+     * @return vehicle entity
      */
     @Operation(summary = "Get a vehicle by ID", description = "Fetches a vehicle entity by its ID.")
     @ApiResponses(value = {
@@ -83,6 +91,24 @@ public class VehicleController {
     public VehicleDto getVehicle(
             @Parameter(description = "ID of the vehicle to be retrieved") @PathVariable("id") Long vehicleId) {
         return vehicleService.getById(vehicleId);
+    }
+
+    /**
+     * Handles GET requests to fetch a vehicle entity by insurance number.
+     * 
+     * @return vehicle entity
+     */
+    @Operation(summary = "Get a vehicle by ID", description = "Fetches a vehicle entity by its ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the vehicle"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "404", description = "Vehicle not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/insurance/{insurance}")
+    public VehicleDto getVehicleByInsuranceNumber(
+            @Parameter(description = "ID of the vehicle to be retrieved") @PathVariable("insurance") String insuranceNumber) throws ResourceNotFoundException {
+        return vehicleService.getByInsuranceNumber(insuranceNumber);
     }
 
     /**

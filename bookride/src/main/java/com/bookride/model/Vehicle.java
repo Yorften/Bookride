@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -46,7 +49,8 @@ public class Vehicle {
     @NotBlank
     private String registrationNumber;
 
-    @NotBlank
+    @NotNull
+    @Positive
     private Integer mileage;
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +58,9 @@ public class Vehicle {
 
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
+
+    @Pattern(regexp = "^ASS-[A-Z]{3}-[1-9]{3}$")
+    private String insuranceNumber;
 
     @Builder.Default
     private boolean deleted = Boolean.FALSE;
